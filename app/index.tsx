@@ -8,9 +8,10 @@ import {
 } from "react-native";
 import { Stack, useRouter } from "expo-router";
 
-import data from "../data/welcomeData.json";
+// import data from "../data/welcomeData.json";
 import { styles } from "../constants/theme";
 import Onboarding from "../components/Onboarding";
+import data from "../data/slides";
 
 const Home = () => {
   const { width } = useWindowDimensions();
@@ -24,7 +25,7 @@ const Home = () => {
       />
 
       <FlatList
-        data={data.welcome}
+        data={data}
         renderItem={({ item }) => <Onboarding item={item} />}
         horizontal
         showsHorizontalScrollIndicator

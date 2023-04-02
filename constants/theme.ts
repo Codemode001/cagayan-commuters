@@ -1,22 +1,13 @@
 import { StyleSheet } from "react-native";
 
 const COLORS = {
-  primary: "#312651",
-  secondary: "#444262",
-  tertiary: "#FF7754",
+  primaryText: "#163922",
+  secondaryText: "#42531b",
 
-  gray: "#83829A",
-  gray2: "#C1C0C8",
-
-  white: "#F3F4F8",
-  lightWhite: "#FAFAFC",
+  primary: "#5d9943",
 };
 
-const FONT = {
-  regular: "DMRegular",
-  medium: "DMMedium",
-  bold: "DMBold",
-};
+const FONT = {};
 
 const SIZES = {
   xSmall: 10,
@@ -49,28 +40,12 @@ const SHADOWS = {
     elevation: 5,
   },
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  image: {
-    flex: 0.7,
-    justifyContent: "center",
-  },
-  title: {
-    fontWeight: "800",
-    fontSize: 28,
-    marginBottom: 10,
-    color: "#493d8a",
-    textAlign: "center",
-  },
-  description: {
-    fontWeight: "300",
-    color: "#62656b",
-    textAlign: "center",
-    paddingHorizontal: 64,
   },
 });
 
