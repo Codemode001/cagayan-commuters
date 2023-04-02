@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Text,
   View,
@@ -6,7 +6,11 @@ import {
   Image,
   StyleSheet,
   StatusBar,
+  Animated,
 } from "react-native";
+
+import Paginator from "./paginator";
+import slides from "../../data/slides";
 
 interface ItemProps {
   id: number;
@@ -16,7 +20,8 @@ interface ItemProps {
 }
 
 const Onboarding = ({ item }: { item: ItemProps }) => {
-  const { width, height } = useWindowDimensions();
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const { width } = useWindowDimensions();
 
   return (
     <View style={[styles.container, { width }]}>
@@ -31,6 +36,7 @@ const Onboarding = ({ item }: { item: ItemProps }) => {
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
       </View>
+      <Paginator data={slides} scrollX={scrollX} />
     </View>
   );
 };
