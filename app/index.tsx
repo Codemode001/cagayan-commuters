@@ -19,6 +19,8 @@ const Home = () => {
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
+  console.log(currentIndex);
+
   return (
     <View style={[styles.container]}>
       <Stack.Screen
@@ -26,26 +28,8 @@ const Home = () => {
           headerShown: false,
         }}
       />
-      <View style={{ flex: 3 }}>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => <Onboarding item={item} />}
-          horizontal
-          showsHorizontalScrollIndicator
-          pagingEnabled
-          bounces={false}
-          scrollEventThrottle={32}
-          keyExtractor={(item) => item.id.toString()}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            {
-              useNativeDriver: false,
-            }
-          )}
-          onViewableItemsChanged={viewableItemsChanged}
-          viewabilityConfig={viewConfig}
-          ref={slidesRef}
-        />
+      <View>
+        <Onboarding />
       </View>
     </View>
   );
