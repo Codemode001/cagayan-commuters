@@ -4,6 +4,7 @@ import { View, StyleSheet, StatusBar, FlatList, Animated } from "react-native";
 import Paginator from "./Paginator";
 import slides from "../../data/slides";
 import OnboardingItem from "./OnboardingItem";
+import NextButton from "./NextButton";
 
 const Onboarding = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -47,6 +48,9 @@ const Onboarding = () => {
             ref={slidesRef}
           />
         </View>
+      </View>
+      <View>
+        <NextButton percentage={(currentIndex + 1) * (100 / slides.length)} />
       </View>
       <View style={styles.paginator}>
         <Paginator data={slides} scrollX={scrollX} />
