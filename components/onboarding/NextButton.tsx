@@ -5,7 +5,12 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { COLORS } from "../../constants/theme";
 
-const NextButton = ({ percentage }: { percentage: any }) => {
+interface NextButtonProps {
+  percentage: number;
+  onPress: () => void;
+}
+
+const NextButton = ({ percentage, onPress }: NextButtonProps) => {
   const size = 128;
   const strokeWidth = 2;
   const center = size / 2;
@@ -28,22 +33,29 @@ const NextButton = ({ percentage }: { percentage: any }) => {
   }, [percentage]);
 
   // useEffect(() => {
-  //     progressAnimation.addListener((value) => {
+  //   progressAnimation.addListener((value) => {
   //     const strokeDashoffset =
-  //         circumference - (circumference * value.value) / 100;
+  //       circumference - (circumference * value.value) / 100;
 
-  //         if(progressRef?.current){
-
-  //             progressRef.current.setNativeProps({
-  //                 strokeDashoffset
-  //             })
-  //         }
-  //     });
+  //     if (progressRef?.current) {
+  //       progressRef.current.setNativeProps({
+  //         strokeDashoffset,
+  //       });
+  //     }
+  //   });
   // }, [percentage]);
+
+  const handleNext = () => {
+    if (percentage >= 100) {
+      // Handle navigation to the home page (replace with your navigation logic)
+    } else {
+      onPress(); // Call the provided onPress function to scroll to the next slide
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Svg>
+      {/* <Svg>
         <G rotation="-90" origin={center}>
           <Circle
             stroke={"#E6E7E8"}
@@ -62,7 +74,7 @@ const NextButton = ({ percentage }: { percentage: any }) => {
             strokeDashoffset={circumference - (circumference * 60) / 100}
           />
         </G>
-      </Svg>
+      </Svg> */}
       <TouchableOpacity activeOpacity={0.6} style={styles.button}>
         <AntDesign name="arrowright" size={32} color="#fff" />
       </TouchableOpacity>
@@ -72,8 +84,7 @@ const NextButton = ({ percentage }: { percentage: any }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "gray",
-    height: "50%",
+    height: "20%",
     justifyContent: "center",
     alignItems: "center",
   },

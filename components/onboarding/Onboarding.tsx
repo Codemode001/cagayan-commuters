@@ -9,7 +9,7 @@ import NextButton from "./NextButton";
 const Onboarding = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const slidesRef = useRef(null);
+  const slidesRef = useRef<FlatList<any> | null>(null);
 
   const viewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: any }) => {
@@ -18,6 +18,12 @@ const Onboarding = () => {
   ).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
+
+  const scrollToNext = () => {
+    if (currentIndex < slides.length - 1 && slidesRef.current) {
+      slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
+    }
+  };
 
   return (
     <View>
@@ -49,12 +55,15 @@ const Onboarding = () => {
           />
         </View>
       </View>
-      <View>
-        <NextButton percentage={(currentIndex + 1) * (100 / slides.length)} />
-      </View>
+
       <View style={styles.paginator}>
         <Paginator data={slides} scrollX={scrollX} />
       </View>
+
+      <NextButton
+        percentage={(currentIndex + 1) * (100 / slides.length)}
+        onPress={scrollToNext}
+      />
     </View>
   );
 };
