@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, Animated, FlatList, ActivityIndicator } from "react-native";
 import { Stack } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { styles } from "../constants/theme";
 import Onboarding from "../components/onboarding/Onboarding";
 import HomeScreen from "../components/homescreen/HomeScreen";
-import data from "../data/slides";
 
 const Loading = () => {
   return (
@@ -16,22 +17,11 @@ const Loading = () => {
   );
 };
 
+const Stacks = createNativeStackNavigator();
+
 const Home = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [viewOnboarding, setViewOnboarding] = useState(false);
-  const scrollX = useRef(new Animated.Value(0)).current;
-  const slidesRef = useRef(null);
-
-  const viewableItemsChanged = useRef(
-    ({ viewableItems }: { viewableItems: any }) => {
-      setCurrentIndex(viewableItems[0].index);
-    }
-  ).current;
-
-  const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
-
-  console.log(currentIndex);
 
   const checkOnboarding = async () => {
     try {
@@ -52,22 +42,36 @@ const Home = () => {
   }, []);
 
   return (
-    <View style={[styles.container]}>
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-      />
-      <View>
-        {loading ? (
-          <Loading />
-        ) : viewOnboarding ? (
-          <HomeScreen />
-        ) : (
-          <Onboarding />
-        )}
-      </View>
-    </View>
+    // <View style={[styles.container]}>
+    //   <Stack.Screen
+    //     options={{
+    //       headerShown: false,
+    //     }}
+    //   />
+    //   <View>
+    //     {loading ? (
+    //       <Loading />
+    //     ) : viewOnboarding ? (
+    //       <HomeScreen />
+    //     ) : (
+    //       <Onboarding />
+    //     )}
+    //   </View>
+    // </View>
+    <NavigationContainer independent={true}>
+      <Stacks.Navigator>
+        <Stacks.Screen
+          name="Onboarding"
+          component={Onboarding}
+          options={{ title: "Welcome", headerShown: false }}
+        />
+        <Stacks.Screen
+          name="Home"
+          component={HomeScreen}
+          // options={{ headerShown: false }}
+        />
+      </Stacks.Navigator>
+    </NavigationContainer>
   );
 };
 

@@ -32,6 +32,7 @@ const Onboarding = () => {
         translucent
         barStyle="light-content"
       />
+
       <View style={styles.container}>
         <View>
           <FlatList
@@ -59,7 +60,6 @@ const Onboarding = () => {
       <View style={styles.paginator}>
         <Paginator data={slides} scrollX={scrollX} />
       </View>
-
       <NextButton
         percentage={(currentIndex + 1) * (100 / slides.length)}
         onPress={scrollToNext}

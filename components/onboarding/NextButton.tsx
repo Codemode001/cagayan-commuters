@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { View, StyleSheet, TouchableOpacity, Animated } from "react-native";
 import Svg, { G, Circle } from "react-native-svg";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { COLORS } from "../../constants/theme";
 
@@ -16,6 +17,7 @@ const NextButton = ({ percentage, onPress }: NextButtonProps) => {
   const center = size / 2;
   const radius = size / 2 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
+  const navigation = useNavigation<any>();
 
   const progressAnimation = useRef(new Animated.Value(0)).current;
   const progressRef = useRef<SVGElement | null>(null);
@@ -32,50 +34,21 @@ const NextButton = ({ percentage, onPress }: NextButtonProps) => {
     animation(percentage);
   }, [percentage]);
 
-  // useEffect(() => {
-  //   progressAnimation.addListener((value) => {
-  //     const strokeDashoffset =
-  //       circumference - (circumference * value.value) / 100;
-
-  //     if (progressRef?.current) {
-  //       progressRef.current.setNativeProps({
-  //         strokeDashoffset,
-  //       });
-  //     }
-  //   });
-  // }, [percentage]);
-
   const handleNext = () => {
     if (percentage >= 100) {
-      // Handle navigation to the home page (replace with your navigation logic)
+      navigation.navigate("Home");
     } else {
-      onPress(); // Call the provided onPress function to scroll to the next slide
+      onPress();
     }
   };
 
   return (
     <View style={styles.container}>
-      {/* <Svg>
-        <G rotation="-90" origin={center}>
-          <Circle
-            stroke={"#E6E7E8"}
-            cx={center}
-            r={radius}
-            cy={center}
-            strokeWidth={strokeWidth}
-          />
-          <Circle
-            stroke={COLORS.primary}
-            cx={center}
-            r={radius}
-            cy={center}
-            strokeWidth={strokeWidth}
-            strokeDasharray={circumference}
-            strokeDashoffset={circumference - (circumference * 60) / 100}
-          />
-        </G>
-      </Svg> */}
-      <TouchableOpacity activeOpacity={0.6} style={styles.button}>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={styles.button}
+        onPress={handleNext}
+      >
         <AntDesign name="arrowright" size={32} color="#fff" />
       </TouchableOpacity>
     </View>

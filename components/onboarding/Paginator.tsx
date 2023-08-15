@@ -17,7 +17,7 @@ const Paginator = ({ data, scrollX }: { data: any; scrollX: any }) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
         const dotWidth = scrollX.interpolate({
           inputRange,
-          outputRange: [10, 17, 10],
+          outputRange: [10, 15, 10],
           extrapolate: "clamp",
         });
 
